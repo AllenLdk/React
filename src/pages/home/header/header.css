@@ -1,0 +1,11 @@
+.ant-carousel .slick-dots{
+  left:0!important;
+  padding-left: 370px;
+}
+.ant-carousel .slick-dots li.slick-active button{
+  width: 60px;
+}
+.ant-carousel .slick-dots li button{
+  width: 40px;
+  height: 4px;
+}

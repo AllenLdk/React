@@ -1,0 +1,17 @@
+.ant-layout-sider-trigger{
+  position: static;
+}
+.returnHome{
+  float: right;
+  margin: 30px 30px;
+  font-size: 20px;
+}
+.ant-layout-footer p{
+  margin-bottom: 0
+}
+.li{
+  list-style-type: none;
+}
+.ant-menu-submenu-active{
+  list-style-type: none;
+}
