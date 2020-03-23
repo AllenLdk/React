@@ -1,11 +1,3 @@
-export const SEARCH_FOCUS = 'header/SEARCH_FOCUS';
-export const SEARCH_BLUR = 'header/SEARCH_BLUR';
-export const CHANGE_BANNER_MESSAGE = 'header/CHANGE_BANNER_MESSAGE';
-export const CHANGE_ARTICLE_LIST = 'home/CHANGE_ARTICLE_LIST';
-export const CHANGE_REGIST_VISIBLE = 'home/CHANGE_REGIST_VISIBLE';
-export const CLOSE_REGIST_VISIBLE = 'home/CLOSE_REGIST_VISIBLE';
-export const CHANGE_LOGIN_VISIBLE = 'home/CHANGE_LOGIN_VISIBLE';
-export const CLOSE_LOGIN_VISIBLE = 'home/CLOSE_LOGIN_VISIBLE';
-export const CHANGE_HOT_LIST = 'home/CHANGE_HOT_LIST';
-export const CHANGE_LOGIN = 'home/CHANGE_LOGIN';
-export const LOGIN_OUT = 'home/LOGIN_OUT';
+export const CHANGE_HOME_DATA = 'home/CHANGE_HOME_DATA';
+export const ADD_ARTICLE_LIST = 'home/ADD_ARTICLE_LIST';
+export const TOGGLE_SCROLL_TOP = 'home/TOGGLE_SCROLL_TOP';

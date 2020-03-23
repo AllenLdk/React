@@ -1,48 +1,65 @@
-import React,{Component, Fragment} from 'react';
+import React, { Component } from 'react';
+import Topic from './components/Topic';
+import List from './components/List';
+import Recommend from './components/Recommend';
+import Writer from './components/Writer';
+import {HomeWrapper,HomeLeft,HomeRight} from './style';
+import bannerJPG from  '../../statics/Home/banner.jpg';
 import { connect } from 'react-redux';
-import Header from './header';
-import Recommend from './recommend';
-import { Body } from './style';
-import BackToTop from '../backTop';
-import Footer from './footer';
-import { Row, Col } from 'antd';
-// import UserCard from './homeUser';
-import HotTopic from './hotTopic';
-import './home.css';
+import { actionCreators } from './store';
+import { BackTop } from './style';
 
-class Home extends Component{
-    render(){  
+class Home extends Component {
+    handleScrollTop(){
+        window.scrollTo(0,0);
+    }
+    render(){
         return (
-          <Fragment>
-            <Row style={{margin:"0 auto",display:"block",width:"1920px"}}><Header/></Row>
-            <Body>
-                <Row>
-                <Col span={13}>
-                <Recommend/>
-                </Col>
-                <Col span={2}></Col>
-                <Col span={9}>
-                    {/* <UserCard/> */}
-                        <HotTopic/>
-                </Col>
-                </Row>
-            </Body>
-            <Footer/>
-            <BackToTop/>
-        </Fragment>
+            <HomeWrapper>
+                <HomeLeft>
+                    <img
+                     className="banner-img"
+                     src={ bannerJPG }
+                     alt=""
+                     />
+                    <Topic/>
+                    <List/>
+                </HomeLeft>
+                <HomeRight>
+                    <Recommend/>
+                    <Writer/>
+                </HomeRight>
+                {this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>返回<br/>顶部</BackTop> : null}
+            </HomeWrapper>
         );
     }
-    
+    componentDidMount(){
+        this.props.changeHomeDate();
+        this.bindEvents();
+    }
+    componentWillMount(){
+        window.removeEventListener('scroll',this.props.changeScrollTopShow);
+    }
+    bindEvents(){
+        window.addEventListener('scroll',this.props.changeScrollTopShow);
+    }
 }
+const mapState = (state) => ({
+    showScroll:state.getIn(['home','showScroll'])
+})
 
-const mapStateToProps = (state) =>{
+const mapDispath = (dispatch) => {
     return {
-      
+        changeHomeDate(){
+            dispatch(actionCreators.getHomeInfo());
+        },
+        changeScrollTopShow(e){
+            if(document.documentElement.scrollTop > 100){
+                dispatch(actionCreators.toggleTopShow(true))
+            }else{
+                dispatch(actionCreators.toggleTopShow(false))
+            }
+        }
     }
 }
-const mapDispathToProps = (dispatch) =>{
-    return {
-      
-    }
-}
-export default connect(mapStateToProps,mapDispathToProps)(Home);
+export default connect(mapState,mapDispath)(Home);

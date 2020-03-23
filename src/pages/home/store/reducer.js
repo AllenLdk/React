@@ -1,41 +1,38 @@
-import * as constants from './constants';
 import { fromJS } from 'immutable';
+import * as constants from './constants';
 
 const defaultState = fromJS({
-    focused:false,
-    loginVisible:false,
-    registVisible:false,
-     login:true,
-    bannerList:[],
+    topicList:[],
     articleList:[],
-    hotList:[]
+    recommendList:[],
+    articlePage:1,
+    showScroll:false
 });
 
+const changeHomeData = (state,action) => {
+    return state.merge({
+        topicList:fromJS(action.topicList),
+        articleList:fromJS(action.articleList),
+        recommendList:fromJS(action.recommendList)
+    });
+}
+const addArticleList = (state,action) => {
+    return state.merge({
+        'articleList':state.get('articleList').concat(action.list),
+        'articlePage':action.nextPage
+    });
+}
 
 export default (state = defaultState,action) => {
     switch(action.type){
-        case constants.SEARCH_FOCUS:
-        return state.set('focused',true);
-        case constants.SEARCH_BLUR:
-        return state.set('focused',false);
-        case constants.CHANGE_REGIST_VISIBLE:
-        return state.set('registVisible',true);
-        case constants.CLOSE_REGIST_VISIBLE:
-        return state.set('registVisible',false);
-        case constants.CHANGE_LOGIN_VISIBLE:
-        return state.set('loginVisible',true);
-        case constants.CLOSE_LOGIN_VISIBLE:
-        return state.set('loginVisible',false);
-        case constants.CHANGE_BANNER_MESSAGE:
-        return state.set('bannerList',fromJS(action.bannerList));
-        case constants.CHANGE_ARTICLE_LIST:
-        return state.set('articleList',fromJS(action.articleList));
-        case constants.CHANGE_HOT_LIST:
-        return state.set('hotList',fromJS(action.hotList));
-        case constants.CHANGE_LOGIN:
-        return state.set('login',action.value);
-        // case constants.LOGIN_OUT:
-        // return state.set('login',action.value);
+        case constants.CHANGE_HOME_DATA:
+            return changeHomeData(state,action);
+            // set('toList',fromJS(action .topicList));
+            case constants.ADD_ARTICLE_LIST:
+            return addArticleList(state,action)
+            case constants.TOGGLE_SCROLL_TOP:
+            return state.set('showScroll',action.flag)
+             //state.set('articleList',state.get('articleList').concat(action.list));
         default:return state;
     }  
 }
